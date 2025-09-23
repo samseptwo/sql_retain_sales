@@ -84,12 +84,14 @@ category='Clothing'
 	and 
 	quantity >=4
 	and 
-	TO_CHAR(sale_date,'YYYY-MM')='2022-11';```
+	TO_CHAR(sale_date,'YYYY-MM')='2022-11';
+```
 
 3. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
 ```sql
-select category,sum(total_sale) from retail_sales
-group by category;```
+	select category,sum(total_sale) from retail_sales
+	group by category;
+```
 
 4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.**:
 ```sql
@@ -115,19 +117,19 @@ group by gender,category
 
 7. **Write a SQL query to calculate the average sale for each month. Find out best selling month in each year**:
 ```sql
-with temp_month as(
-select extract(year from sale_date) as Year,
+	with temp_month as(
+	select extract(year from sale_date) as Year,
 	extract(month from sale_date)as Months,
 	avg(total_sale) as average_sale,
 	rank()over(partition by extract(year from sale_date)order by avg(total_sale) desc )as priority
 	from retail_sales
-group by year,months)
-select year,months,average_sale from temp_month where priority=1;
-```
+	group by year,months)
+	select year,months,average_sale from temp_month where priority=1;
+ ```
 
 8. **Write a SQL query to find the top 5 customers based on the highest total sales **:
 ```sql
-select customer_id,sum(total_sale)as highest_sale 
+	select customer_id,sum(total_sale)as highest_sale 
 	from retail_sales 
 	group by customer_id
 	order by highest_sale desc 
